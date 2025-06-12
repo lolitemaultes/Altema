@@ -1116,7 +1116,7 @@
             const stats = mediaCollection.stats;
             const gedStatus = gedData ? 'GED included' : 'Media only';
 
-            const successMessage = `HARVEST SUCCESS!\n\nFinal Results:\n• Package Type: ${gedStatus}\n• Thumbnails Found: ${autoLoadStats.currentThumbnails}\n• Media Analyzed: ${stats.converted}\n• People Identified: ${stats.peopleFound}\n• Images Downloaded: ${stats.downloads}\n\n📦 COMPLETE ALTEMA PACKAGE:\n• All media organized by person\n• Original Ancestry filenames\n• Complete metadata in EXIF\n• Ready for any genealogy software!\n\n${gedData ? 'GED file included in package!' : 'For GED files, use Ancestry\'s manual export feature.'}\n\nView image properties in Windows/Mac to see embedded metadata!`;
+            const successMessage = `HARVEST SUCCESS!\n\nFinal Results:\n• Package Type: ${gedStatus}\n• Thumbnails Found: ${autoLoadStats.currentThumbnails}\n• Media Analyzed: ${stats.converted}\n• People Identified: ${stats.peopleFound}\n• Images Downloaded: ${stats.downloads}\n\nALTEMA PACKAGE:\n• All media organized by person\n• Ready for any genealogy software!\n\n${gedData ? 'GED file included in package!' : 'For GED files, use Ancestry\'s manual export feature.'}\n\nView image properties in Windows/Mac to see embedded metadata!`;
 
             alert(successMessage);
 

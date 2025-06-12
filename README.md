@@ -17,7 +17,7 @@ A userscript that downloads all media from your Ancestry family tree and optiona
    - **Chrome/Edge**: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
    - **Firefox**: [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) or [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)
 
-2. Click [here to install the script](github.com/lolitemaultes/Altema/altema.user.js) or copy the script into your userscript manager
+2. Click [here to install the script](https://github.com/lolitemaultes/Altema/raw/refs/heads/main/altema.user.js) or copy the script into your userscript manager
 
 3. Navigate to your Ancestry tree's memories page
 

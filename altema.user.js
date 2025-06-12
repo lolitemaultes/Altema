@@ -91,8 +91,8 @@
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-                color: white;
+                background: linear-gradient(135deg, #ffffff, #ebfff8);
+                color: #1a1a1a;
                 padding: 20px;
                 border-radius: 15px;
                 box-shadow: 0 6px 20px rgba(0,0,0,0.3);
@@ -115,7 +115,7 @@
                         Altema works on your tree's memories page where all photos are displayed.
                     </div>
                     <button id="nav-to-memories" style="
-                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        background: linear-gradient(135deg, #1a1a1a, #595959);
                         color: white;
                         border: none;
                         padding: 12px 20px;

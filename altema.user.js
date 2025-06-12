@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Altema - Ancestry Complete Harvester v4.0
+// @name         Altema
 // @namespace    http://tampermonkey.net/
 // @version      4.0
-// @description  Take back your family history
+// @description  Reclaim Your Family History
 // @author       lolitemaultes
 // @match        https://www.ancestry.com/*
 // @grant        none

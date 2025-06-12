@@ -39,6 +39,7 @@
     let activeThreads = 0;
     const maxConcurrentThreads = 5;
 
+    let isUIMinimized = true;
     let harvestUI = null;
     let statusDisplay = null;
     let detailDisplay = null;
@@ -91,11 +92,12 @@
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(135deg, #ffffff, #ebfff8);
-                color: #1a1a1a;
+                background: #ffffff;
+                color: #5CB85C;
                 padding: 20px;
                 border-radius: 15px;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                border: 2px solid #5CB85C;
+                box-shadow: 0 6px 20px rgba(92, 184, 92, 0.3);
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 font-size: 14px;
                 z-index: 10000;
@@ -103,19 +105,19 @@
                 backdrop-filter: blur(10px);
                 animation: slideIn 0.5s ease-out;
             ">
-                <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center;">
-                    Altema v4.0
+                <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center; color: #5CB85C;">
+                    Altema
                 </div>
-
-                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                    <div style="font-weight: bold; margin-bottom: 10px; text-align: center;">
+    
+                <div style="background: rgba(92, 184, 92, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid rgba(92, 184, 92, 0.2);">
+                    <div style="font-weight: bold; margin-bottom: 10px; text-align: center; color: #5CB85C;">
                         Navigate to Memories Page
                     </div>
-                    <div style="font-size: 13px; line-height: 1.5; margin-bottom: 15px;">
+                    <div style="font-size: 13px; line-height: 1.5; margin-bottom: 15px; color: #333;">
                         Altema works on your tree's memories page where all photos are displayed.
                     </div>
                     <button id="nav-to-memories" style="
-                        background: linear-gradient(135deg, #1a1a1a, #595959);
+                        background: linear-gradient(135deg, #5CB85C, #4FA84F);
                         color: white;
                         border: none;
                         padding: 12px 20px;
@@ -125,33 +127,34 @@
                         font-weight: bold;
                         width: 100%;
                         transition: transform 0.2s ease;
+                        box-shadow: 0 4px 8px rgba(92, 184, 92, 0.2);
                     ">Go to Memories Page</button>
                 </div>
-
-                <div style="font-size: 11px; text-align: center; opacity: 0.8;">
+    
+                <div style="font-size: 11px; text-align: center; opacity: 0.8; color: #5CB85C;">
                     Complete Ancestry Media Export<br>
                     Created by lolitemaultes
                 </div>
             </div>
-
+    
             <style>
                 @keyframes slideIn {
                     from { transform: translateX(100%); opacity: 0; }
                     to { transform: translateX(0); opacity: 1; }
                 }
-
+    
                 #nav-to-memories:hover {
                     transform: scale(1.02);
                 }
-
+    
                 #nav-to-memories:active {
                     transform: scale(0.98);
                 }
             </style>
         `;
-
+    
         document.body.appendChild(navUI);
-
+    
         document.getElementById('nav-to-memories').addEventListener('click', () => {
             const treeIdMatch = window.location.href.match(/\/tree\/(\d+)/);
             if (treeIdMatch) {
@@ -161,7 +164,7 @@
                 window.location.href = 'https://www.ancestry.com/family-tree/trees';
             }
         });
-
+    
         console.log('Navigation UI created - directing user to memories page');
     }
     async function detectAvailableTrees() {
@@ -368,56 +371,109 @@
         harvestUI.innerHTML = `
             <style>
                 @keyframes pulse {
-                    0% { box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
-                    50% { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-                    100% { box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+                    0% { box-shadow: 0 6px 20px rgba(92, 184, 92, 0.3); }
+                    50% { box-shadow: 0 8px 25px rgba(92, 184, 92, 0.4); }
+                    100% { box-shadow: 0 6px 20px rgba(92, 184, 92, 0.3); }
                 }
-
+    
                 @keyframes slideIn {
                     from { transform: translateX(100%); opacity: 0; }
                     to { transform: translateX(0); opacity: 1; }
                 }
-
+    
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+    
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+    
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+    
                 @keyframes progressFill {
                     from { width: 0%; }
                     to { width: var(--progress-width); }
                 }
-
+    
                 @keyframes checkMark {
                     0% { transform: scale(0) rotate(45deg); }
                     50% { transform: scale(1.2) rotate(45deg); }
                     100% { transform: scale(1) rotate(45deg); }
                 }
-
+    
                 .altema-ui {
                     animation: slideIn 0.5s ease-out;
                 }
-
+    
+                .altema-ui.minimizing {
+                    animation: slideOut 0.3s ease-out forwards;
+                }
+    
                 .altema-ui.processing {
                     animation: pulse 2s infinite;
                 }
-
+    
+                .altema-minimized-bar {
+                    position: fixed;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    background: linear-gradient(135deg, #5CB85C, #4FA84F);
+                    color: white;
+                    padding: 15px 8px;
+                    border-radius: 15px 0 0 15px;
+                    box-shadow: -3px 0 10px rgba(92, 184, 92, 0.3);
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    font-size: 14px;
+                    font-weight: bold;
+                    z-index: 10000;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    writing-mode: vertical-lr;
+                    text-orientation: mixed;
+                    letter-spacing: 2px;
+                    user-select: none;
+                    border: 2px solid #4FA84F;
+                    border-right: none;
+                }
+    
+                .altema-minimized-bar:hover {
+                    background: linear-gradient(135deg, #4FA84F, #5CB85C);
+                    transform: translateY(-50%) translateX(-5px);
+                    box-shadow: -5px 0 15px rgba(92, 184, 92, 0.4);
+                }
+    
+                .altema-minimized-bar.fading {
+                    animation: fadeOut 0.3s ease-out forwards;
+                }
+    
                 .progress-bar {
-                    background: rgba(0,0,0,0.2);
+                    background: rgba(92, 184, 92, 0.2);
                     border-radius: 10px;
                     height: 8px;
                     overflow: hidden;
                     margin: 2px 0;
                     position: relative;
                 }
-
+    
                 .progress-fill {
-                    background: linear-gradient(90deg, #4CAF50, #45a049);
+                    background: linear-gradient(90deg, #5CB85C, #4FA84F);
                     height: 100%;
                     border-radius: 10px;
                     transition: width 0.3s ease;
                     position: relative;
                 }
-
+    
                 .progress-fill.complete {
-                    background: linear-gradient(90deg, #4CAF50, #66BB6A);
+                    background: linear-gradient(90deg, #5CB85C, #66BB6A);
                 }
-
+    
                 .thread-item {
                     display: flex;
                     align-items: center;
@@ -427,23 +483,24 @@
                     transform: translateX(-20px);
                     transition: all 0.3s ease;
                 }
-
+    
                 .thread-item.active {
                     opacity: 1;
                     transform: translateX(0);
                 }
-
+    
                 .thread-label {
                     width: 60px;
                     text-align: left;
                     font-weight: bold;
+                    color: #5CB85C;
                 }
-
+    
                 .thread-progress {
                     flex: 1;
                     margin: 0 8px;
                 }
-
+    
                 .thread-check {
                     width: 16px;
                     height: 16px;
@@ -451,11 +508,11 @@
                     opacity: 0;
                     transition: opacity 0.3s ease;
                 }
-
+    
                 .thread-check.complete {
                     opacity: 1;
                 }
-
+    
                 .thread-check.complete::after {
                     content: '';
                     position: absolute;
@@ -463,45 +520,75 @@
                     top: 2px;
                     width: 4px;
                     height: 8px;
-                    border: solid #4CAF50;
+                    border: solid #5CB85C;
                     border-width: 0 2px 2px 0;
                     transform: rotate(45deg);
                     animation: checkMark 0.5s ease;
                 }
-
+    
                 .main-button {
                     background: linear-gradient(135deg, #5CB85C, #4FA84F);
-                    border: 2px solid #5CB85C;
-                    box-shadow: 0 6px 20px rgba(92, 184, 92, 0.2);
                     transition: all 0.3s ease;
                     transform: scale(1);
                 }
-
+    
                 .main-button:hover {
                     transform: scale(1.02);
-                    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+                    box-shadow: 0 6px 12px rgba(92, 184, 92, 0.3);
                 }
-
+    
                 .main-button:active {
                     transform: scale(0.98);
                 }
-
+    
                 .main-button.stop {
                     background: linear-gradient(135deg, #F44336, #d32f2f);
                     animation: pulse 1s infinite;
                 }
-
+    
                 .stats-item {
                     transition: all 0.3s ease;
                 }
-
+    
                 .stats-item.updated {
-                    color: #ffeb3b !important;
+                    color: #5CB85C !important;
+                    transform: scale(1.1);
+                }
+    
+                .minimize-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(92, 184, 92, 0.1);
+                    border: 1px solid rgba(92, 184, 92, 0.3);
+                    color: #5CB85C;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.2s ease;
+                    z-index: 10001;
+                }
+    
+                .minimize-btn:hover {
+                    background: rgba(92, 184, 92, 0.2);
+                    border-color: #5CB85C;
                     transform: scale(1.1);
                 }
             </style>
-
-            <div class="altema-ui" style="
+    
+            <!-- Minimized Bar -->
+            <div id="altema-minimized-bar" class="altema-minimized-bar" style="display: ${isUIMinimized ? 'block' : 'none'};">
+                ALTEMA
+            </div>
+    
+            <!-- Full UI -->
+            <div class="altema-ui" id="altema-full-ui" style="
                 position: fixed;
                 top: 20px;
                 right: 20px;
@@ -509,25 +596,29 @@
                 color: #5CB85C;
                 padding: 20px;
                 border-radius: 15px;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                border: 2px solid #5CB85C;
+                box-shadow: 0 6px 20px rgba(92, 184, 92, 0.2);
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 font-size: 14px;
                 z-index: 10000;
                 width: 480px;
                 backdrop-filter: blur(10px);
+                display: ${isUIMinimized ? 'none' : 'block'};
             ">
-                <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                <button class="minimize-btn" id="minimize-btn" title="Minimize">−</button>
+                
+                <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center; color: #5CB85C;">
                     Altema - Reclaim Your Family History
                 </div>
-
-                <div id="harvest-stats" style="margin-bottom: 15px; background: rgba(92, 184, 92, 0.1); padding: 12px; border-radius: 10px;">
-                    <strong>Progress Summary:</strong><br>
-                    Thumbnails: <span id="thumbnail-count" class="stats-item" style="font-weight: bold; color: #ffeb3b;">0</span> |
-                    Analyzed: <span id="media-count" class="stats-item" style="font-weight: bold; color: #4CAF50;">0</span><br>
-                    People: <span id="people-count" class="stats-item" style="font-weight: bold; color: #2196F3;">0</span> |
-                    Downloaded: <span id="download-count" class="stats-item" style="font-weight: bold; color: #9C27B0;">0</span>
+    
+                <div id="harvest-stats" style="margin-bottom: 15px; background: rgba(92, 184, 92, 0.1); padding: 12px; border-radius: 10px; border: 1px solid rgba(92, 184, 92, 0.2);">
+                    <strong style="color: #5CB85C;">Progress Summary:</strong><br>
+                    <span style="color: #333;">Thumbnails:</span> <span id="thumbnail-count" class="stats-item" style="font-weight: bold; color: #5CB85C;">0</span> |
+                    <span style="color: #333;">Analyzed:</span> <span id="media-count" class="stats-item" style="font-weight: bold; color: #5CB85C;">0</span><br>
+                    <span style="color: #333;">People:</span> <span id="people-count" class="stats-item" style="font-weight: bold; color: #5CB85C;">0</span> |
+                    <span style="color: #333;">Downloaded:</span> <span id="download-count" class="stats-item" style="font-weight: bold; color: #5CB85C;">0</span>
                 </div>
-
+    
                 <div style="margin-bottom: 20px;">
                     <button id="main-action-btn" class="main-button" style="
                         color: white;
@@ -538,41 +629,44 @@
                         font-size: 16px;
                         font-weight: bold;
                         width: 100%;
-                        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                        box-shadow: 0 4px 8px rgba(92, 184, 92, 0.2);
                     ">MEDIA HARVEST</button>
                 </div>
-
+    
                 <div id="thread-progress-container" style="
-                    background: rgba(0,0,0,0.2);
+                    background: rgba(92, 184, 92, 0.1);
                     padding: 12px;
                     border-radius: 10px;
+                    border: 1px solid rgba(92, 184, 92, 0.2);
                     margin-bottom: 15px;
                     display: none;
                 ">
-                    <div style="font-weight: bold; margin-bottom: 8px; text-align: center;">⚡ Thread Progress:</div>
+                    <div style="font-weight: bold; margin-bottom: 8px; text-align: center; color: #5CB85C;">⚡ Thread Progress:</div>
                     <div id="thread-list"></div>
                 </div>
-
+    
                 <div id="detailed-status" style="
-                    background: rgba(0,0,0,0.2);
+                    background: rgba(92, 184, 92, 0.1);
                     padding: 12px;
                     border-radius: 10px;
+                    border: 1px solid rgba(92, 184, 92, 0.2);
                     margin-bottom: 15px;
                     min-height: 60px;
                     font-size: 13px;
                     line-height: 1.4;
+                    color: #333;
                 ">
-                    <div style="font-weight: bold; margin-bottom: 5px;">🟢 Status: Ready</div>
-                    <div id="detail-text">Click "COMPLETE HARVEST" to automatically:<br>
+                    <div style="font-weight: bold; margin-bottom: 5px; color: #5CB85C;">🟢 Status: Ready</div>
+                    <div id="detail-text">Click "MEDIA HARVEST" to automatically:<br>
                     Attempt GED download (if available)<br>
                     Load all media (auto-scroll + pagination)<br>
                     Parallel analyze using real Ancestry APIs<br>
                     Download complete gallery with EXIF metadata</div>
                 </div>
-
+    
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px;">
                     <button id="ged-only-btn" style="
-                        background: linear-gradient(135deg, #10b981, #059669);
+                        background: linear-gradient(135deg, #5CB85C, #4FA84F);
                         color: white;
                         border: none;
                         padding: 10px 8px;
@@ -583,9 +677,9 @@
                         transition: transform 0.2s ease;
                         white-space: nowrap;
                     ">GED Only</button>
-
+    
                     <button id="report-btn" style="
-                        background: linear-gradient(135deg, #2196F3, #1976D2);
+                        background: linear-gradient(135deg, #5CB85C, #4FA84F);
                         color: white;
                         border: none;
                         padding: 10px 8px;
@@ -596,9 +690,9 @@
                         transition: transform 0.2s ease;
                         white-space: nowrap;
                     ">Report</button>
-
+    
                     <button id="clear-btn" style="
-                        background: linear-gradient(135deg, #F44336, #d32f2f);
+                        background: linear-gradient(135deg, #dc3545, #c82333);
                         color: white;
                         border: none;
                         padding: 10px 8px;
@@ -610,29 +704,69 @@
                         white-space: nowrap;
                     ">Clear</button>
                 </div>
-
-                <div style="font-size: 10px; text-align: center; opacity: 0.7; margin-top: 10px;">
+    
+                <div style="font-size: 10px; text-align: center; opacity: 0.7; margin-top: 10px; color: #5CB85C;">
                     Created by lolitemaultes
                 </div>
             </div>
         `;
-
+    
         document.body.appendChild(harvestUI);
         statusDisplay = document.querySelector('#detailed-status div');
         detailDisplay = document.getElementById('detail-text');
-
+    
+        // Event listeners
         document.getElementById('main-action-btn').addEventListener('click', handleMainAction);
         document.getElementById('ged-only-btn').addEventListener('click', downloadGEDOnly);
         document.getElementById('report-btn').addEventListener('click', showReport);
         document.getElementById('clear-btn').addEventListener('click', clearCollection);
-
+    
+        // Minimize/Maximize functionality
+        document.getElementById('minimize-btn').addEventListener('click', minimizeUI);
+        document.getElementById('altema-minimized-bar').addEventListener('click', maximizeUI);
+    
+        // Button hover effects
         ['ged-only-btn', 'report-btn', 'clear-btn'].forEach(id => {
             const btn = document.getElementById(id);
             btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.05)');
             btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
         });
-
+    
         updateAutoLoadStats();
+    }
+    
+    function minimizeUI() {
+        const fullUI = document.getElementById('altema-full-ui');
+        const minimizedBar = document.getElementById('altema-minimized-bar');
+        
+        // Add minimizing animation class
+        fullUI.classList.add('minimizing');
+        
+        // After animation completes, hide full UI and show minimized bar
+        setTimeout(() => {
+            fullUI.style.display = 'none';
+            fullUI.classList.remove('minimizing');
+            minimizedBar.style.display = 'block';
+            minimizedBar.style.animation = 'fadeIn 0.3s ease-out';
+            isUIMinimized = true;
+        }, 300);
+    }
+    
+    function maximizeUI() {
+        const fullUI = document.getElementById('altema-full-ui');
+        const minimizedBar = document.getElementById('altema-minimized-bar');
+        
+        // Add fading animation to minimized bar
+        minimizedBar.classList.add('fading');
+        
+        // After fade animation, show full UI
+        setTimeout(() => {
+            minimizedBar.style.display = 'none';
+            minimizedBar.classList.remove('fading');
+            fullUI.style.display = 'block';
+            fullUI.style.animation = 'slideIn 0.5s ease-out';
+            isUIMinimized = false;
+        }, 300);
     }
 
     function updateTreeSelectionUI() {

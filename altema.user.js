@@ -240,7 +240,6 @@
     
         document.body.appendChild(navUI);
     
-        // Event listeners
         document.getElementById('nav-to-memories').addEventListener('click', () => {
             const treeIdMatch = window.location.href.match(/\/tree\/(\d+)/);
             if (treeIdMatch) {
@@ -250,8 +249,7 @@
                 window.location.href = 'https://www.ancestry.com/family-tree/trees';
             }
         });
-    
-        // Minimize/Maximize functionality
+
         document.getElementById('nav-minimize-btn').addEventListener('click', minimizeNavUI);
         document.getElementById('altema-nav-minimized-bar').addEventListener('click', maximizeNavUI);
     
@@ -261,11 +259,9 @@
     function minimizeNavUI() {
         const fullUI = document.getElementById('altema-nav-full-ui');
         const minimizedBar = document.getElementById('altema-nav-minimized-bar');
-        
-        // Add minimizing animation class
+
         fullUI.classList.add('minimizing');
         
-        // After animation completes, hide full UI and show minimized bar
         setTimeout(() => {
             fullUI.style.display = 'none';
             fullUI.classList.remove('minimizing');
@@ -279,10 +275,8 @@
         const fullUI = document.getElementById('altema-nav-full-ui');
         const minimizedBar = document.getElementById('altema-nav-minimized-bar');
         
-        // Add fading animation to minimized bar
         minimizedBar.classList.add('fading');
         
-        // After fade animation, show full UI
         setTimeout(() => {
             minimizedBar.style.display = 'none';
             minimizedBar.classList.remove('fading');
@@ -832,17 +826,14 @@
         statusDisplay = document.querySelector('#detailed-status div');
         detailDisplay = document.getElementById('detail-text');
     
-        // Event listeners
         document.getElementById('main-action-btn').addEventListener('click', handleMainAction);
         document.getElementById('ged-only-btn').addEventListener('click', downloadGEDOnly);
         document.getElementById('report-btn').addEventListener('click', showReport);
         document.getElementById('clear-btn').addEventListener('click', clearCollection);
     
-        // Minimize/Maximize functionality
         document.getElementById('minimize-btn').addEventListener('click', minimizeUI);
         document.getElementById('altema-minimized-bar').addEventListener('click', maximizeUI);
     
-        // Button hover effects
         ['ged-only-btn', 'report-btn', 'clear-btn'].forEach(id => {
             const btn = document.getElementById(id);
             btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.05)');
@@ -856,10 +847,8 @@
         const fullUI = document.getElementById('altema-full-ui');
         const minimizedBar = document.getElementById('altema-minimized-bar');
         
-        // Add minimizing animation class
         fullUI.classList.add('minimizing');
         
-        // After animation completes, hide full UI and show minimized bar
         setTimeout(() => {
             fullUI.style.display = 'none';
             fullUI.classList.remove('minimizing');
@@ -873,10 +862,8 @@
         const fullUI = document.getElementById('altema-full-ui');
         const minimizedBar = document.getElementById('altema-minimized-bar');
         
-        // Add fading animation to minimized bar
         minimizedBar.classList.add('fading');
         
-        // After fade animation, show full UI
         setTimeout(() => {
             minimizedBar.style.display = 'none';
             minimizedBar.classList.remove('fading');

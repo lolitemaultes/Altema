@@ -39,6 +39,7 @@
     let activeThreads = 0;
     const maxConcurrentThreads = 5;
 
+    let isNavUIMinimized = true;
     let isUIMinimized = true;
     let harvestUI = null;
     let statusDisplay = null;
@@ -88,7 +89,104 @@
         const navUI = document.createElement('div');
         navUI.id = 'altema-nav-ui';
         navUI.innerHTML = `
-            <div style="
+            <style>
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+    
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+    
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+    
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+    
+                .altema-nav-ui {
+                    animation: slideIn 0.5s ease-out;
+                }
+    
+                .altema-nav-ui.minimizing {
+                    animation: slideOut 0.3s ease-out forwards;
+                }
+    
+                .altema-nav-minimized-bar {
+                    position: fixed;
+                    top: 80px;
+                    right: 0;
+                    background: linear-gradient(135deg, #5CB85C, #4FA84F);
+                    color: white;
+                    padding: 15px 8px;
+                    border-radius: 15px 0 0 15px;
+                    box-shadow: -3px 0 10px rgba(92, 184, 92, 0.3);
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    font-size: 14px;
+                    font-weight: bold;
+                    z-index: 10000;
+                    cursor: pointer;
+                    writing-mode: vertical-lr;
+                    text-orientation: mixed;
+                    letter-spacing: 2px;
+                    user-select: none;
+                    border: 2px solid #4FA84F;
+                    border-right: none;
+                    transition: none;
+                }
+    
+                .altema-nav-minimized-bar.fading {
+                    animation: fadeOut 0.3s ease-out forwards;
+                }
+    
+                .nav-minimize-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(92, 184, 92, 0.1);
+                    border: 1px solid rgba(92, 184, 92, 0.3);
+                    color: #5CB85C;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.2s ease;
+                    z-index: 10001;
+                }
+    
+                .nav-minimize-btn:hover {
+                    background: rgba(92, 184, 92, 0.2);
+                    border-color: #5CB85C;
+                    transform: scale(1.1);
+                }
+    
+                #nav-to-memories:hover {
+                    transform: scale(1.02);
+                }
+    
+                #nav-to-memories:active {
+                    transform: scale(0.98);
+                }
+            </style>
+    
+            <!-- Minimized Bar -->
+            <div id="altema-nav-minimized-bar" class="altema-nav-minimized-bar" style="display: ${isNavUIMinimized ? 'block' : 'none'};">
+                ALTEMA
+            </div>
+    
+            <!-- Full Navigation UI -->
+            <div class="altema-nav-ui" id="altema-nav-full-ui" style="
                 position: fixed;
                 top: 20px;
                 right: 20px;
@@ -103,8 +201,10 @@
                 z-index: 10000;
                 width: 350px;
                 backdrop-filter: blur(10px);
-                animation: slideIn 0.5s ease-out;
+                display: ${isNavUIMinimized ? 'none' : 'block'};
             ">
+                <button class="nav-minimize-btn" id="nav-minimize-btn" title="Minimize">−</button>
+                
                 <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center; color: #5CB85C;">
                     Altema
                 </div>
@@ -136,25 +236,11 @@
                     Created by lolitemaultes
                 </div>
             </div>
-    
-            <style>
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-    
-                #nav-to-memories:hover {
-                    transform: scale(1.02);
-                }
-    
-                #nav-to-memories:active {
-                    transform: scale(0.98);
-                }
-            </style>
         `;
     
         document.body.appendChild(navUI);
     
+        // Event listeners
         document.getElementById('nav-to-memories').addEventListener('click', () => {
             const treeIdMatch = window.location.href.match(/\/tree\/(\d+)/);
             if (treeIdMatch) {
@@ -165,7 +251,45 @@
             }
         });
     
+        // Minimize/Maximize functionality
+        document.getElementById('nav-minimize-btn').addEventListener('click', minimizeNavUI);
+        document.getElementById('altema-nav-minimized-bar').addEventListener('click', maximizeNavUI);
+    
         console.log('Navigation UI created - directing user to memories page');
+    }
+    
+    function minimizeNavUI() {
+        const fullUI = document.getElementById('altema-nav-full-ui');
+        const minimizedBar = document.getElementById('altema-nav-minimized-bar');
+        
+        // Add minimizing animation class
+        fullUI.classList.add('minimizing');
+        
+        // After animation completes, hide full UI and show minimized bar
+        setTimeout(() => {
+            fullUI.style.display = 'none';
+            fullUI.classList.remove('minimizing');
+            minimizedBar.style.display = 'block';
+            minimizedBar.style.animation = 'fadeIn 0.3s ease-out';
+            isNavUIMinimized = true;
+        }, 300);
+    }
+    
+    function maximizeNavUI() {
+        const fullUI = document.getElementById('altema-nav-full-ui');
+        const minimizedBar = document.getElementById('altema-nav-minimized-bar');
+        
+        // Add fading animation to minimized bar
+        minimizedBar.classList.add('fading');
+        
+        // After fade animation, show full UI
+        setTimeout(() => {
+            minimizedBar.style.display = 'none';
+            minimizedBar.classList.remove('fading');
+            fullUI.style.display = 'block';
+            fullUI.style.animation = 'slideIn 0.5s ease-out';
+            isNavUIMinimized = false;
+        }, 300);
     }
     async function detectAvailableTrees() {
         console.log('Detecting available trees...');
@@ -421,9 +545,8 @@
     
                 .altema-minimized-bar {
                     position: fixed;
-                    top: 50%;
+                    top: 120px;
                     right: 0;
-                    transform: translateY(-50%);
                     background: linear-gradient(135deg, #5CB85C, #4FA84F);
                     color: white;
                     padding: 15px 8px;
@@ -434,19 +557,13 @@
                     font-weight: bold;
                     z-index: 10000;
                     cursor: pointer;
-                    transition: all 0.3s ease;
                     writing-mode: vertical-lr;
                     text-orientation: mixed;
                     letter-spacing: 2px;
                     user-select: none;
                     border: 2px solid #4FA84F;
                     border-right: none;
-                }
-    
-                .altema-minimized-bar:hover {
-                    background: linear-gradient(135deg, #4FA84F, #5CB85C);
-                    transform: translateY(-50%) translateX(-5px);
-                    box-shadow: -5px 0 15px rgba(92, 184, 92, 0.4);
+                    transition: none;
                 }
     
                 .altema-minimized-bar.fading {

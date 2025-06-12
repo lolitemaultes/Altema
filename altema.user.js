@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Altema
 // @namespace    http://tampermonkey.net/
-// @version      4.0
+// @version      5.0
 // @description  Reclaim Your Family History
 // @author       lolitemaultes
 // @match        https://www.ancestry.com/*
@@ -232,7 +232,6 @@
                 </div>
     
                 <div style="font-size: 11px; text-align: center; opacity: 0.8; color: #5CB85C;">
-                    Complete Ancestry Media Export<br>
                     Created by lolitemaultes
                 </div>
             </div>

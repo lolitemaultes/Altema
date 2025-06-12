@@ -2,7 +2,7 @@
 
 # Altema - Take back your family history
 
-A userscript that downloads all media from your Ancestry family tree with embedded metadata and optional GED export.
+A userscript that downloads all media from your Ancestry family tree and optional GED export.
 
 ## Features
 

@@ -1,6 +1,6 @@
 ![altema](https://github.com/user-attachments/assets/1807d0b4-74de-4be5-a970-45f607ed1b71)
 
-# Altema - Take back your family history
+# Altema - Take Back Your Family History
 
 A userscript that downloads all media from your Ancestry family tree and optional GED export.
 

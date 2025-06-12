@@ -515,10 +515,7 @@
                 backdrop-filter: blur(10px);
             ">
                 <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center;">
-                    Altema v4.0
-                </div>
-                <div style="font-size: 12px; font-weight: bold; margin-bottom: 18px; text-align: center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
-                    COMPLETE ANCESTRY MEDIA EXPORT
+                    Altema - Reclaim Your Family History
                 </div>
 
                 <div id="harvest-stats" style="margin-bottom: 15px; background: rgba(0,0,0,0.1); padding: 12px; border-radius: 10px;">

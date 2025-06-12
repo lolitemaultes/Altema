@@ -1,6 +1,6 @@
 ![altema](https://github.com/user-attachments/assets/1807d0b4-74de-4be5-a970-45f607ed1b71)
 
-# Altema - Ancestry Media Harvester
+# Altema - Take back your family history
 
 A userscript that downloads all media from your Ancestry family tree with embedded metadata and optional GED export.
 

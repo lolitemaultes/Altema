@@ -2,10 +2,9 @@
 
 [![Install Altema](https://img.shields.io/badge/INSTALL-Altema-3DC296?style=for-the-badge&logo=github)](https://github.com/lolitemaultes/Altema/raw/refs/heads/main/altema.user.js)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Install Tampermonkey](https://img.shields.io/badge/INSTALL-Tampermonkey-blue?style=for-the-badge&logo=tampermonkey)](https://www.tampermonkey.net/)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Install Greasemonkey](https://img.shields.io/badge/INSTALL-Greasemonkey-orange?style=for-the-badge&logo=greasemonkey)](https://www.greasespot.net/greasemonkey/)
 
-
 # Altema - Reclaim Your Family History
 
-A userscript that downloads all media from your Ancestry family tree and optional GED export.
+Altema empowers you to back up your entire Ancestry.com tree in a single click, exporting your GEDCOM file alongside every photo and document you’ve ever uploaded. This tool is a lifeline for anyone fed up with manual downloads and for those who hope to reclaim and preserve their entire family archive in one effortless sweep.
 
 ## Features
 
@@ -16,27 +15,15 @@ A userscript that downloads all media from your Ancestry family tree and optiona
 
 ## Installation
 
-1. Install a userscript manager:
-   - **Chrome/Edge**: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-   - **Firefox**: [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) or [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)
+1. Ensure you have a userscript manager installed
+   - **Tampermonkey**: https://www.tampermonkey.net/
+   - **Greasemonkey**: https://www.greasespot.net/greasemonkey/
 
-2. Click [here to install the script](https://github.com/lolitemaultes/Altema/raw/refs/heads/main/altema.user.js) or copy the script into your userscript manager
+2. Install the userscript with the button above or [click here](https://github.com/lolitemaultes/Altema/raw/refs/heads/main/altema.user.js)
 
-3. Navigate to your Ancestry tree's memories page
+3. Navigate to your Ancestry family tree and Altema will do the rest
 
-## Usage
-
-1. Go to your Ancestry tree's memories page: `ancestry.com/family-tree/tree/YOUR-TREE-ID/memories`
-2. The Altema interface will appear in the top-right corner
-3. Click **"MEDIA HARVEST"** to start the complete process
-4. The script will:
-   - Attempt to download your tree's GED file
-   - Auto-scroll to load all photos
-   - Analyze each photo using Ancestry's APIs
-   - Download full-resolution images with embedded metadata
-   - Create an organized ZIP file
-
-## Output Structure
+## Download Structure
 
 ```
 TreeName_complete_2025-01-15.zip
@@ -59,19 +46,6 @@ GED file download may fail due to Ancestry API restrictions. If this happens:
 3. Download the GED file manually
 4. Use Altema for comprehensive media backup
 
-## Browser Compatibility
-
-- **Chrome/Edge**: Full support
-- **Firefox**: Full support
-- **Safari**: Not tested
-
-## Limitations
-
-- Only works on memories pages where photos are displayed
-- Requires active Ancestry login session
-- Some private trees may have restricted access
-- GED download depends on Ancestry's API availability
-
 ## Privacy
 
 - Script runs entirely in your browser
@@ -81,8 +55,4 @@ GED file download may fail due to Ancestry API restrictions. If this happens:
 
 ## Credits
 
-Created by lolitemaultes
-
-## License
-
-This project is for educational and personal backup purposes. Respect Ancestry's terms of service and only download content you have rights to access.
+This project was created by lolitemautles with intent for educational and personal backup purposes. Please respect Ancestry's terms of service and only download content you have rights to access.

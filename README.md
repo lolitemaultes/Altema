@@ -55,4 +55,4 @@ GED file download may fail due to Ancestry API restrictions. If this happens:
 
 ## Credits
 
-This project was created by lolitemautles with intent for educational and personal backup purposes. Please respect Ancestry's terms of service and only download content you have rights to access.
+This project was created by lolitemaultes with intent for educational and personal backup purposes. Please respect Ancestry's terms of service and only download content you have rights to access.

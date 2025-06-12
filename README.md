@@ -1,5 +1,8 @@
 ![altema](https://github.com/user-attachments/assets/1807d0b4-74de-4be5-a970-45f607ed1b71)
 
+[![Install Altema](https://img.shields.io/badge/INSTALL-Altema-3DC296?style=for-the-badge&logo=github)](https://github.com/lolitemaultes/Altema/raw/refs/heads/main/altema.user.js)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Install Tampermonkey](https://img.shields.io/badge/INSTALL-Tampermonkey-blue?style=for-the-badge&logo=tampermonkey)](https://www.tampermonkey.net/)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Install Greasemonkey](https://img.shields.io/badge/INSTALL-Greasemonkey-orange?style=for-the-badge&logo=greasemonkey)](https://www.greasespot.net/greasemonkey/)
+
+
 # Altema - Reclaim Your Family History
 
 A userscript that downloads all media from your Ancestry family tree and optional GED export.

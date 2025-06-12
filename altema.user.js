@@ -470,7 +470,9 @@
                 }
 
                 .main-button {
-                    background: linear-gradient(135deg, #4CAF50, #45a049);
+                    background: linear-gradient(135deg, #5CB85C, #4FA84F);
+                    border: 2px solid #5CB85C;
+                    box-shadow: 0 6px 20px rgba(92, 184, 92, 0.2);
                     transition: all 0.3s ease;
                     transform: scale(1);
                 }
@@ -503,8 +505,8 @@
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-                color: white;
+                background: #ffffff;
+                color: #5CB85C;
                 padding: 20px;
                 border-radius: 15px;
                 box-shadow: 0 6px 20px rgba(0,0,0,0.3);
@@ -518,7 +520,7 @@
                     Altema - Reclaim Your Family History
                 </div>
 
-                <div id="harvest-stats" style="margin-bottom: 15px; background: rgba(0,0,0,0.1); padding: 12px; border-radius: 10px;">
+                <div id="harvest-stats" style="margin-bottom: 15px; background: rgba(92, 184, 92, 0.1); padding: 12px; border-radius: 10px;">
                     <strong>Progress Summary:</strong><br>
                     Thumbnails: <span id="thumbnail-count" class="stats-item" style="font-weight: bold; color: #ffeb3b;">0</span> |
                     Analyzed: <span id="media-count" class="stats-item" style="font-weight: bold; color: #4CAF50;">0</span><br>
